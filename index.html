@@ -7,6 +7,32 @@
     <meta name="description" content="Lunar Legacy — The Digital Archaeology of Space Exploration. Interactive archive of abandoned NASA hardware on the Moon and Mars." />
     <meta name="theme-color" content="#0a0e1a" />
     <title>Lunar Legacy — The Digital Archaeology of Space Exploration</title>
+    <script>
+      // GitHub Pages SPA redirect decode.
+      // The 404.html script encodes the original path as ?p=/some/path
+      // This script decodes it and restores the correct URL via history.replaceState
+      // so React Router can match the route without a page reload.
+      (function() {
+        var search = window.location.search;
+        if (search && search.slice(1, 3) === 'p=') {
+          var decoded = search.slice(1).split('&').reduce(function(acc, part) {
+            var eqIndex = part.indexOf('=');
+            var key = part.slice(0, eqIndex);
+            var val = decodeURIComponent(part.slice(eqIndex + 1));
+            if (key === 'p') acc.path = val;
+            if (key === 'q') acc.query = '?' + val;
+            return acc;
+          }, { path: '', query: '' });
+          if (decoded.path) {
+            var base = window.location.pathname.replace(/\/?$/, '');
+            window.history.replaceState(
+              null, null,
+              base + decoded.path + decoded.query + window.location.hash
+            );
+          }
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

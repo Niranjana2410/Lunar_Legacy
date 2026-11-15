@@ -56,9 +56,15 @@ function AppLayout() {
   );
 }
 
+// import.meta.env.BASE_URL is set by Vite to the `base` in vite.config.js.
+// In production (GitHub Pages) this is '/Lunar_Legacy/'.
+// In development it is '/' so routing works locally too.
+// Stripping the trailing slash gives BrowserRouter a clean basename.
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
+
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AppLayout />
     </BrowserRouter>
   );

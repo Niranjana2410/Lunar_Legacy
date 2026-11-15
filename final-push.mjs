@@ -11,6 +11,7 @@ const run = (cmd) => {
   }
 };
 run('git.exe add -A');
-run('git.exe commit -m "chore: remove temp build scripts"');
+run('git.exe status --short');
+run('git.exe commit -m "chore: final cleanup, remove all temp scripts"');
 run('git.exe push origin main');
-console.log('Done.');
+console.log('All done — repo is clean.');
